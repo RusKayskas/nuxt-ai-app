@@ -1,10 +1,10 @@
 <template>
   <div class="h-full relative">
-    <div>
+    <div class="hidden h-full md:flex md:w-72 md:flex=col md:fixed md:inset-y-0 z-80">
       <!--sidebar-->
       <Sidebar />
     </div>
-    <main>
+    <main class="md:pl-72 pb-10">
       <!--navbar-->
       <slot />
     </main>
