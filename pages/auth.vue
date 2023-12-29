@@ -1,12 +1,27 @@
 <template>
-  <Auth
-    :supabaseClient="supabaseClient"
-    :appearance="{
-      theme: ThemeSupa
-    }"
-    redirectTo="/"
-    :providers="['google']"
-  />
+  <div class="w-full min-h-screen flex items-center">
+
+    <div class="max-w-[800px] w-full mx-auto">
+
+      <UiCard>
+        <UiCardTitle>
+          <div class="text-center py-4">Welcome</div>
+        </UiCardTitle>
+        <UiCardContent>
+          <Auth
+            :supabaseClient="supabaseClient"
+            :appearance="{
+              theme: ThemeSupa
+            }"
+            redirectTo="/"
+            :providers="['google']"
+          />
+        </UiCardContent>
+      </UiCard>
+
+    </div>
+
+  </div>
 </template>
 
 <script setup lang="ts">
