@@ -8,7 +8,8 @@
         <h1 class="text-2xl font-bold">AiGenX</h1>
       </NuxtLink>
       <div class="space-y-1">
-        <nuxt-link to=""></nuxt-link>
+        <NuxtLink to="">
+        </NuxtLink>
       </div>
     </div>
   </aside>
