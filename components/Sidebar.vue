@@ -8,7 +8,17 @@
         <h1 class="text-2xl font-bold">AiGenX</h1>
       </NuxtLink>
       <div class="space-y-1">
-        <NuxtLink to="">
+        <NuxtLink 
+          v-for="route in DASHBORDLINKS" 
+          :to="route.link" 
+          :key="route.name" 
+          class="text-sm group text-primary flex p-3 justify-start font-medium cursor-pointer rounded-lg transition hover:bg-muted"
+          :class="{ 'bg-muted': bgMuted(route.link) }"
+          >
+          <div class="flex items-center flex-1">
+            <Icon :name="route.icon" :class="`h-5 w-5 mr-3 ${route.color}`" />
+            <span>{{ route.name }}</span>
+          </div>
         </NuxtLink>
       </div>
     </div>
@@ -16,7 +26,11 @@
 </template>
 
 <script setup lang="ts">
-
+  const currentRoute = useRoute();
+  console.log('currentRoute.path', currentRoute.path);
+  const bgMuted = (link: string) => {
+    return currentRoute.path === link;
+  }
 </script>
 
 <style scoped>
