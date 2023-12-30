@@ -1,3 +1,13 @@
+<script setup lang="ts">
+  import { ThemeSupa } from '@supabase/auth-ui-shared';
+  import { Auth } from '@nuxtbase/auth-ui-vue';
+
+  const supabaseClient = useSupabaseClient();
+  
+  definePageMeta({
+    layout: 'l-auth'
+  });
+</script>
 <template>
   <div class="w-full min-h-screen flex items-center">
 
@@ -23,15 +33,3 @@
 
   </div>
 </template>
-
-<script setup lang="ts">
-  // Import predefined theme
-  import { ThemeSupa } from '@supabase/auth-ui-shared';
-  import { Auth } from '@nuxtbase/auth-ui-vue';
-
-  const supabaseClient = useSupabaseClient();
-  
-  definePageMeta({
-    layouts: 'lAuth'
-  });
-</script>
