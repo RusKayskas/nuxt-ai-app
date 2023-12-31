@@ -3,7 +3,6 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-    {{ user }}
   </div>
 </template>
 <script lang="ts" setup>
