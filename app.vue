@@ -3,5 +3,18 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+    {{ user }}
   </div>
 </template>
+<script lang="ts" setup>
+    const user = useSupabaseUser();
+    onMounted(() => {
+      checkAuth();
+    });
+    function checkAuth() {
+      // Если пользователь не авторизован, редиректим на страницу аутентификации
+      if (!user.value) {
+        navigateTo('/auth');
+      }
+    }
+</script>

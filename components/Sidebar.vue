@@ -11,9 +11,17 @@
         <li v-for="route in DASHBORDLINKS" :key="route.name">
           <NuxtLink 
           :to="route.link"  
+          v-if="route.name !== 'logOut'"
           class="text-sm group text-primary flex p-3 justify-start font-medium cursor-pointer rounded-lg transition hover:bg-muted"
           :class="{ 'bg-muted': bgMuted(route.link) }"
           >
+          <div class="flex items-center flex-1">
+            <Icon :name="route.icon" :class="`h-5 w-5 mr-3 ${route.color}`" />
+            <span>{{ route.name }}</span>
+          </div>
+         </NuxtLink>
+         <NuxtLink @click="logOut" class="text-sm group text-primary flex p-3 justify-start font-medium cursor-pointer rounded-lg transition hover:bg-muted"
+         :class="{ 'bg-muted': bgMuted(route.link) }" variant="link" v-if="route.name === 'logOut'">
           <div class="flex items-center flex-1">
             <Icon :name="route.icon" :class="`h-5 w-5 mr-3 ${route.color}`" />
             <span>{{ route.name }}</span>
@@ -27,9 +35,13 @@
 
 <script setup lang="ts">
   const currentRoute = useRoute();
-  console.log('currentRoute.path', currentRoute.path);
   const bgMuted = (link: string) => {
     return currentRoute.path === link;
+  }
+  const supabaseClient = useSupabaseClient();
+  const logOut = async () => {
+    await supabaseClient.auth.signOut();
+    navigateTo('/auth');
   }
 </script>
 

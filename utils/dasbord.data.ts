@@ -35,12 +35,18 @@ export const DASHBORDLINKS:IDashbordLinks[] = [
     name: 'code',
     icon: 'lucide:code',
     link: '/code',
-    color: 'text-green-500'
+    color: 'text-yellow-500'
   },
   {
     name: 'settings',
     icon: 'lucide:settings',
     link: '/settings',
-    color: 'text-green-500'
+    color: 'text-red-500'
+  },
+  {
+    name: 'logOut',
+    icon: 'lucide:log-out',
+    link: '/auth',
+    color: 'text-red-500'
   }
 ]

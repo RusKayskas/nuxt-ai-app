@@ -6,6 +6,7 @@
     </div>
     <main class="md:pl-72 pb-10">
       <!--navbar-->
+      <Navbar />
       <slot />
     </main>
   </div>
