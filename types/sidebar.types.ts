@@ -1,4 +1,4 @@
-export interface IDashbordLinks {
+export interface ISidebarLinks {
   name: string,
   icon: string,
   link: string,

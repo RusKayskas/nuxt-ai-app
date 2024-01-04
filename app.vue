@@ -10,7 +10,7 @@
     onMounted(() => {
       checkAuth();
     });
-    function checkAuth() {
+    const checkAuth = () => {
       // Если пользователь не авторизован, редиректим на страницу аутентификации
       if (!user.value) {
         navigateTo('/auth');

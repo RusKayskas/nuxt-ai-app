@@ -1,6 +1,6 @@
-import type { IDashbordLinks } from "@/types/dashboard.types";
+import type { ISidebarLinks } from "@/types/sidebar.types";
 
-export const DASHBORDLINKS:IDashbordLinks[] = [
+export const SIDEBARLINKS:ISidebarLinks[] = [
   {
     name: 'Dashboard',
     icon: 'lucide:layout-dashboard',

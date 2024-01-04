@@ -8,7 +8,7 @@
         <h1 class="text-2xl font-bold">AiGenX</h1>
       </NuxtLink>
       <ul class="space-y-1">
-        <li v-for="route in DASHBORDLINKS" :key="route.name">
+        <li v-for="route in SIDEBARLINKS" :key="route.name">
           <NuxtLink 
           :to="route.link"  
           v-if="route.name !== 'logOut'"
@@ -34,6 +34,8 @@
 </template>
 
 <script setup lang="ts">
+import { SIDEBARLINKS } from '~/utils/sidebar.data';
+
   const currentRoute = useRoute();
   const bgMuted = (link: string) => {
     return currentRoute.path === link;
