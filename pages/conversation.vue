@@ -1,6 +1,14 @@
 <template>
   <div>
-    conversation
+    <!--Heading-->
+
+    <!--Loader-->
+
+    <!--empty-->
+
+    <!--BotAvatar-->
+
+    <!--USerAvatar-->
   </div>
 </template>
 

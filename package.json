@@ -27,6 +27,7 @@
     "@radix-icons/vue": "^1.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "openai": "^4.24.1",
     "radix-vue": "^1.2.5",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7"
