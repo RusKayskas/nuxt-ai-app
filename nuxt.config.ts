@@ -12,6 +12,18 @@ export default defineNuxtConfig({
     prefix: 'Ui',
     componentDir: './components/ui'
   },
+  components: [
+    {
+      path: '~/components/',
+      extensions: ['.vue'],
+      prefix: ''
+    },
+    {
+      path: '~/components/shared',
+      extensions: ['.vue'],
+      prefix: 'Ui'
+    }
+  ],
   supabase: {
     redirectOptions: {
       login: '/auth',

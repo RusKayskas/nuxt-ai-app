@@ -2,13 +2,6 @@ import type { IDashbordLinks } from "~/types/dashbord.types";
 
 export const DASBOARDLINKS:IDashbordLinks[] = [
   {
-    name: 'Dashboard',
-    icon: 'lucide:layout-dashboard',
-    link: '/dashbord',
-    color: 'text-sky-500',
-    bgColor: 'bg-sky-500/10'
-  },
-  {
     name: 'Conversation',
     icon: 'lucide:message-square',
     link: '/conversation',
