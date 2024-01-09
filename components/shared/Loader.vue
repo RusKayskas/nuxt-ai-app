@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex flex-col gap-y-4 items-center justify-center">
+  <div class="h-full flex flex-col gap-y-4 items-center animate-pulse justify-center">
     <div class="w-8 h-8 relative animate-spin">
       <NuxtImg class="w-full" src="/logo.svg" alt="logo" />
     </div>
