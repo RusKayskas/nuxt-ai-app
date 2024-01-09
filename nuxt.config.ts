@@ -5,7 +5,18 @@ export default defineNuxtConfig({
   '@nuxtjs/tailwindcss', 
   'shadcn-nuxt', 
   '@nuxtjs/supabase', 
-  '@nuxt/image', 
+  '@nuxt/image',
+  [
+    '@nuxtjs/google-fonts', 
+    {
+      families: {
+        Montserrat: {
+          wght: [300, 400, 500, 700],
+          ital: [300], 
+        },
+      },
+    },
+  ], 
   'nuxt-icon'
   ],
   shadcn: {

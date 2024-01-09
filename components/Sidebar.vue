@@ -10,7 +10,7 @@
       <ul class="space-y-1">
         <li v-for="route in SIDEBARLINKS" :key="route.name">
           <NuxtLink 
-          :to="route.link"  
+          :to="route.link"
           v-if="route.name !== 'logOut'"
           class="text-sm group text-primary flex p-3 justify-start font-medium cursor-pointer rounded-lg transition hover:bg-muted"
           :class="{ 'bg-muted': bgMuted(route.link) }"

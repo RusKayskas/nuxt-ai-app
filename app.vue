@@ -17,3 +17,9 @@
       }
     }
 </script>
+<style>
+body {
+  @apply bg-background text-foreground text-base;
+  font-family: 'Montserrat', sans-serif;
+}
+</style>
