@@ -5,8 +5,8 @@
       title="Code Generation" 
       description="Generate code using description text."
       icon="lucide:code"
-      iconColor="text-green-500"
-      bgColor="text-green-500/10"
+      iconColor="text-yellow-500"
+      bgColor="text-yellow-500/10"
     />
     <div class="px-4 lg:px08">
       <div>
