@@ -1,4 +1,4 @@
-export interface ISidebarLinks {
+export type ISidebarLinks = {
   name: string,
   icon: string,
   link: string,

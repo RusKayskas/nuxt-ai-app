@@ -1,4 +1,4 @@
-export interface IDashbordLinks {
+export type IDashbordLinks = {
   name: string,
   icon: string,
   link: string,
