@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
  const model = "riffusion/riffusion:8cf61ea6c56afd61d8f5b9ffd14d7c216c0a93844ce2d82ac1c9ecc9c7f24e05"
 
-  const response =  = await replicate.run(
+  const response = await replicate.run(
     model,
     {
       input: {

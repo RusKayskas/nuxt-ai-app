@@ -2,11 +2,11 @@
   <div>
     <!--Heading-->
     <UiHeading
-      title="conversation" 
-      description="Our most advanced conversation model."
-      icon="lucide:message-square"
-      iconColor="text-violet-500"
-      bgColor="text-violet-500/10"
+      title="Music generation" 
+      description="Turn your prompt into music."
+      icon="lucide:music"
+      iconColor="text-emerald-500"
+      bgColor="text-emerald-500/10"
     />
     <div class="px-4 lg:px08">
       <div>
@@ -19,7 +19,7 @@
               <input 
                 type="text"
                 v-model="inputPrompt"
-                placeholder="How do i calculate the radius of a circle?"
+                placeholder="A Rock song"
                 class="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent w-full"
               >
             </div>
@@ -40,23 +40,13 @@
           class="p-8 rounded-lg flex items-center justify-center bg-muted">
           <UiLoader />
         </div>
-        <UiEmpty v-if="!messages.length && !isLoading && !messageError" label="No conversation started." />
+        <UiEmpty v-if="!music && !isLoading && !messageError" label="No music generation." />
 
         <div class="flex flex-col-reverse gap-y-4">
-          <div
-            v-for="(message, index) in messages"
-            :key="index"
-            :class="`p-8 w-full rounded-lg flex items-center gap-x-3 ${
-             message.role === 'user' ? 'bg-white border border-black' : 'bg-slate-20' 
-            }`"
-          > 
-            <UiUserAvatar v-if="message.role === 'user'" />
-            <UiBotAvatar v-else />
-            <p v-if="message.content" class="text-sm">
-              {{ message.content }}
-            </p>
-          </div>
-          <p v-if="messageError && !isLoading && messages" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
+          <audio v-if="music" controls class="w-full mt-8">
+            <source :src="music" />
+          </audio>
+          <p v-if="messageError && !isLoading && music" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
             <Icon name="emojione-monotone:crying-cat-face" size="50" />
             {{ messageError }}
           </p>
@@ -68,34 +58,23 @@
 </template>
 
 <script setup lang="ts">
-  import type { TChatCompletionRequestMessage } from '~/types/conversation.types';
+  import type { TAudioResponse } from '~/types/audio.types';
   const inputPrompt: Ref<string> = ref('');
   const isLoading: Ref<boolean> = ref(false);
-  const messages: Ref<TChatCompletionRequestMessage[]> = ref([]);
+  const music = ref<string>();
   const messageError: Ref<string> = ref('');
   const submitForm = async() => {
     isLoading.value = true;
-    const userMessage: TChatCompletionRequestMessage = {
-      role: 'user',
-      content: inputPrompt.value
-    }
-    const newMessages = [...messages.value, userMessage];
-    const { data, error} = await useFetch('/api/conversation', {
+    
+    
+    const { data, error} = await useFetch<TAudioResponse>('/api/music', {
       method: 'POST',
       body: {
-        messages: newMessages
+        prompt: inputPrompt.value
       }
     });
     if(data.value) {
-      messages.value = [
-        ...messages.value,
-        userMessage,
-        {
-          role: 'assistant',
-          content: data.value.content as string,
-        }
-
-      ]
+      music.value = data.value.audio
     }
 
     if(error.value) {
@@ -104,6 +83,7 @@
       messageError.value = 'Something went wrong';
     }
     isLoading.value = false;
+    inputPrompt.value = '';
   }
 
 </script>
