@@ -25,32 +25,36 @@
             </div>
 
           </div>
+          <div class="col-span-12 lg:col-span-2">
+            <UiSelect v-model="resolutinSelect">
+              <UiSelectTrigger>
+                <UiSelectValue placeholder="Select a fruit" />
+              </UiSelectTrigger>
+              <UiSelectContent>
+                <UiSelectGroup>
+                  <UiSelectItem v-for="(res, index) in IMAGERESOLUTINOPTIONS" :key="index" :value="res.value">
+                    {{ res.text }}
+                  </UiSelectItem>
+                </UiSelectGroup>
+              </UiSelectContent>
+            </UiSelect>
+          </div>
 
-          <UiSelect>
-            <UiSelectTrigger class="w-[180px]">
-              <UiSelectValue placeholder="Select a fruit" />
-            </UiSelectTrigger>
-            <UiSelectContent>
-              <UiSelectGroup>
-                <UiSelectLabel>Fruits</UiSelectLabel>
-                <UiSelectItem value="apple">
-                  Apple
-                </UiSelectItem>
-                <UiSelectItem value="banana">
-                  Banana
-                </UiSelectItem>
-                <UiSelectItem value="blueberry">
-                  Blueberry
-                </UiSelectItem>
-                <UiSelectItem value="grapes">
-                  Grapes
-                </UiSelectItem>
-                <UiSelectItem value="pineapple">
-                  Pineapple
-                </UiSelectItem>
-              </UiSelectGroup>
-            </UiSelectContent>
-          </UiSelect>
+          <div class="col-span-12 lg:col-span-2">
+            <UiSelect v-model="amountSelect">
+              <UiSelectTrigger>
+                <UiSelectValue placeholder="Select a fruit" />
+              </UiSelectTrigger>
+              <UiSelectContent>
+                <UiSelectGroup>
+                  <UiSelectItem v-for="(item, index) in IMAGEAMOUNTOPTIONS" :key="index" :value="item.value">
+                    {{ item.text }}
+                  </UiSelectItem>
+                </UiSelectGroup>
+              </UiSelectContent>
+            </UiSelect>
+          </div>
+          
 
           <UiButton 
             class="col-span-12 lg:col-span-2"
@@ -67,23 +71,31 @@
           class="p-8 rounded-lg flex items-center justify-center bg-muted">
           <UiLoader />
         </div>
-        <UiEmpty v-if="!messages.length && !isLoading && !messageError" label="No conversation started." />
+        <UiEmpty v-if="!photos.length && !isLoading && !messageError" label="No conversation started." />
 
         <div class="flex flex-col-reverse gap-y-4">
-          <div
-            v-for="(message, index) in messages"
-            :key="index"
-            :class="`p-8 w-full rounded-lg flex items-center gap-x-3 ${
-             message.role === 'user' ? 'bg-white border border-black' : 'bg-slate-20' 
-            }`"
-          > 
-            <UiUserAvatar v-if="message.role === 'user'" />
-            <UiBotAvatar v-else />
-            <p v-if="message.content" class="text-sm">
-              {{ message.content }}
-            </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
+            <div 
+            v-for="photo in photos"
+            :key="photo"
+            class="rounded-lg overflow-hidden border border-black/5 flex justify-center items-center"
+          >
+            <div class="relative aspect-square">
+              <img :src="photo" alt="image" />
+            </div>
+            <div class="-2">
+              <NuxtLink target="_blank"
+                :to="photo"
+                download
+                class="w-full bg-slate-200 flex justify-center px-1 py-2 items-center"
+              >
+                Download
+              </NuxtLink>
+            </div>
           </div>
-          <p v-if="messageError && !isLoading && messages" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
+          </div>
+
+          <p v-if="messageError && !isLoading && photos" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
             <Icon name="emojione-monotone:crying-cat-face" size="50" />
             {{ messageError }}
           </p>
@@ -95,34 +107,32 @@
 </template>
 
 <script setup lang="ts">
-  import type { TChatCompletionRequestMessage } from '~/types/conversation.types';
-  const inputPrompt: Ref<string> = ref('');
-  const isLoading: Ref<boolean> = ref(false);
-  const messages: Ref<TChatCompletionRequestMessage[]> = ref([]);
+  import { IMAGERESOLUTINOPTIONS } from '~/utils/image.data';
+  import { IMAGEAMOUNTOPTIONS } from '~/utils/image.data';
+  const inputPrompt = ref<string>('');
+  const isLoading = ref<boolean>(false);
+  const resolutinSelect = ref<string>('256x256');
+  const amountSelect = ref<string>('1');
+  const photos = ref<string[]>([]);
   const messageError: Ref<string> = ref('');
   const submitForm = async() => {
     isLoading.value = true;
-    const userMessage: TChatCompletionRequestMessage = {
-      role: 'user',
-      content: inputPrompt.value
-    }
-    const newMessages = [...messages.value, userMessage];
-    const { data, error} = await useFetch('/api/conversation', {
+
+    const { data, error} = await useFetch('/api/image', {
       method: 'POST',
       body: {
-        messages: newMessages
+        prompt: inputPrompt.value,
+        amount: amountSelect.value,
+        resolution: resolutinSelect.value
       }
     });
     if(data.value) {
-      messages.value = [
-        ...messages.value,
-        userMessage,
-        {
-          role: 'assistant',
-          content: data.value.content as string,
+      photos.value = data.value.map((img) => {
+        if(img.url) {
+          return img.url
         }
-
-      ]
+        return ''
+      })
     }
 
     if(error.value) {
@@ -130,6 +140,7 @@
       //Todo: Check error type
       messageError.value = 'Something went wrong';
     }
+    inputPrompt.value = '';
     isLoading.value = false;
   }
 

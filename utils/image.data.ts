@@ -13,4 +13,23 @@ export const IMAGERESOLUTINOPTIONS: IImageResolutionOptions[] = [
     value: '1024x1024',
     text: '1024x1024'
   }
-]
+];
+
+export const IMAGEAMOUNTOPTIONS: IImageResolutionOptions[] = [
+  {
+    value: '1',
+    text: '1 photo'
+  },
+  {
+    value: '2',
+    text: '2 photo'
+  },
+  {
+    value: '3',
+    text: '3 photo'
+  },
+  {
+    value: '4',
+    text: '4 photo'
+  }
+];
