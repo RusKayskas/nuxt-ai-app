@@ -118,7 +118,7 @@
   const submitForm = async() => {
     isLoading.value = true;
 
-    const { data, error} = await useFetch('/api/image', {
+    const { data, error} = await useFetch('/api/image/openai.posts', {
       method: 'POST',
       body: {
         prompt: inputPrompt.value,
