@@ -15,24 +15,6 @@ export const IMAGERESOLUTINOPTIONS: IImageResolutionOptions[] = [
   }
 ];
 
-// export const IMAGEAMOUNTOPTIONS: IImageResolutionOptions[] = [
-//   {
-//     value: '1',
-//     text: '1 photo'
-//   },
-//   {
-//     value: '2',
-//     text: '2 photo'
-//   },
-//   {
-//     value: '3',
-//     text: '3 photo'
-//   },
-//   {
-//     value: '4',
-//     text: '4 photo'
-//   }
-// ];
 export const IMAGEAMOUNTOPTIONS: TImagesAmountOptions[] = [
   {
     value: '1',

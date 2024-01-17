@@ -71,7 +71,7 @@
           class="p-8 rounded-lg flex items-center justify-center bg-muted">
           <UiLoader />
         </div>
-        <UiEmpty v-if="!photos && !isLoading && !messageError" label="No music generation." />
+        <UiEmpty v-if="!photos.length && !isLoading && !messageError" label="No image generation." />
         
         <div class="flex flex-col-reverse gap-y-4">
 
@@ -79,24 +79,24 @@
             <NuxtImg :src="photo" />
           </div> -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
-            <div 
-            v-for="photo in photos"
-            :key="photo"
-            class="rounded-lg overflow-hidden border border-black/5 flex justify-center items-center"
-          >
-            <div class="relative aspect-square">
-              <img :src="photo" alt="image" />
+              <div 
+              v-for="photo in photos"
+              :key="photo"
+              class="rounded-lg overflow-hidden border border-black/5"
+            >
+              <div class="relative aspect-square flex justify-center items-center">
+                <img :src="photo" alt="image" />
+              </div>
+              <div class="-2">
+                <NuxtLink target="_blank"
+                  :to="photo"
+                  download
+                  class="w-full bg-slate-200 flex justify-center px-1 py-2 items-center"
+                >
+                  Download
+                </NuxtLink>
+              </div>
             </div>
-            <div class="-2">
-              <NuxtLink target="_blank"
-                :to="photo"
-                download
-                class="w-full bg-slate-200 flex justify-center px-1 py-2 items-center"
-              >
-                Download
-              </NuxtLink>
-            </div>
-          </div>
           </div>
           <p v-if="messageError && !isLoading && photos" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
             <Icon name="emojione-monotone:crying-cat-face" size="50" />

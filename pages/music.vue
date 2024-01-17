@@ -46,7 +46,7 @@
           <audio v-if="music" controls class="w-full mt-8">
             <source :src="music" />
           </audio>
-          <p v-if="messageError && !isLoading && music" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
+          <p v-if="messageError && !isLoading" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
             <Icon name="emojione-monotone:crying-cat-face" size="50" />
             {{ messageError }}
           </p>
@@ -74,12 +74,14 @@
       }
     });
     if(data.value) {
-      music.value = data.value.audio
+      music.value = data.value.audio;
+      messageError.value = '';
     }
 
     if(error.value) {
       // console.log('[ConversationError]', error.value.statusMessage);
       //Todo: Check error type
+      console.log('error.value', error.value);
       messageError.value = 'Something went wrong';
     }
     isLoading.value = false;

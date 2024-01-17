@@ -2,11 +2,11 @@
   <div>
     <!--Heading-->
     <UiHeading
-      title="Music generation" 
-      description="Turn your prompt into music."
-      icon="lucide:music"
-      iconColor="text-emerald-500"
-      bgColor="text-emerald-500/10"
+      title="Video generation" 
+      description="Turn your prompt into video."
+      icon="lucide:video"
+      iconColor="text-orange-500"
+      bgColor="text-orange-500/10"
     />
     <div class="px-4 lg:px08">
       <div>
@@ -19,7 +19,7 @@
               <input 
                 type="text"
                 v-model="inputPrompt"
-                placeholder="A Rock song"
+                placeholder="Inter your prompt"
                 class="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent w-full"
               >
             </div>
@@ -40,16 +40,16 @@
           class="p-8 rounded-lg flex items-center justify-center bg-muted">
           <UiLoader />
         </div>
-        <UiEmpty v-if="!photos && !isLoading && !messageError" label="No music generation." />
+        <UiEmpty v-if="!video && !isLoading && !messageError" label="No music generation." />
 
         <div class="flex flex-col-reverse gap-y-4">
           <!-- <audio v-if="video" controls class="w-full mt-8">
             <source :src="video" />
           </audio> -->
-          <div v-for="(photo, index) in photos" :key="index">
+          <div v-for="(photo, index) in video" :key="index">
             <NuxtImg :src="photo" />
           </div>
-          <p v-if="messageError && !isLoading && photos" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
+          <p v-if="messageError && !isLoading && video" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
             <Icon name="emojione-monotone:crying-cat-face" size="50" />
             {{ messageError }}
           </p>
@@ -64,20 +64,21 @@
   import type { TAudioResponse } from '~/types/audio.types';
   const inputPrompt: Ref<string> = ref('');
   const isLoading: Ref<boolean> = ref(false);
-  const photos = ref<string[]>([]);
+  const video = ref<string[]>([]);
   const messageError: Ref<string> = ref('');
   const submitForm = async() => {
     isLoading.value = true;
     
     
-    const { data, error} = await useFetch('/api/image', {
+    const { data, error} = await useFetch('/api/video', {
       method: 'POST',
       body: {
         prompt: inputPrompt.value
       }
     });
     if(data.value) {
-      photos.value = JSON.parse(JSON.stringify(data.value));
+      video.value = JSON.parse(JSON.stringify(data.value));
+      messageError.value = '';
       console.log('data.value',JSON.parse(JSON.stringify(data.value)));
     }
 

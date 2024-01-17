@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
- const model = "stability-ai/stable-diffusion:ac732df83cea7fff18b8472768c88ad041fa750ff7682a21affe81863cbe77e4"
+ const model = "anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351"
 
   const response = await replicate.run(
     model,
