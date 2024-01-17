@@ -81,7 +81,6 @@
     if(error.value) {
       // console.log('[ConversationError]', error.value.statusMessage);
       //Todo: Check error type
-      console.log('error.value', error.value);
       messageError.value = 'Something went wrong';
     }
     isLoading.value = false;

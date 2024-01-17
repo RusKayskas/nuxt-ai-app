@@ -40,16 +40,16 @@
           class="p-8 rounded-lg flex items-center justify-center bg-muted">
           <UiLoader />
         </div>
-        <UiEmpty v-if="!video && !isLoading && !messageError" label="No music generation." />
+        <UiEmpty v-if="!video && !isLoading && !messageError" label="No video generation." />
 
         <div class="flex flex-col-reverse gap-y-4">
           <!-- <audio v-if="video" controls class="w-full mt-8">
             <source :src="video" />
           </audio> -->
-          <div v-for="(photo, index) in video" :key="index">
-            <NuxtImg :src="photo" />
-          </div>
-          <p v-if="messageError && !isLoading && video" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
+          <video v-if="video" controls class="w-full mt-8 rounded-lg border bg-black">
+            <source :src="video">
+          </video>
+          <p v-if="messageError && !isLoading && !video" class="p-8 rounded-lg flex flex-col items-center justify-center bg-muted text-red-500 text-bold" >
             <Icon name="emojione-monotone:crying-cat-face" size="50" />
             {{ messageError }}
           </p>
@@ -61,25 +61,23 @@
 </template>
 
 <script setup lang="ts">
-  import type { TAudioResponse } from '~/types/audio.types';
   const inputPrompt: Ref<string> = ref('');
   const isLoading: Ref<boolean> = ref(false);
-  const video = ref<string[]>([]);
+  const video = ref<string>();
   const messageError: Ref<string> = ref('');
   const submitForm = async() => {
     isLoading.value = true;
     
     
-    const { data, error} = await useFetch('/api/video', {
+    const { data, error} = await useFetch<string[]>('/api/video', {
       method: 'POST',
       body: {
         prompt: inputPrompt.value
       }
     });
     if(data.value) {
-      video.value = JSON.parse(JSON.stringify(data.value));
+      video.value = data.value[0];
       messageError.value = '';
-      console.log('data.value',JSON.parse(JSON.stringify(data.value)));
     }
 
     if(error.value) {

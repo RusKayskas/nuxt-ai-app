@@ -52,7 +52,5 @@ export default defineEventHandler(async (event) => {
       }
     }
   );
-  console.log(amount);
-  console.log(response);
   return response
 })
