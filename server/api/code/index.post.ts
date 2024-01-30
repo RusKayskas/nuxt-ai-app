@@ -1,5 +1,7 @@
 import OpenAI from 'openai';
 import { protectRoute } from '~/server/utils';
+import type { User } from '~/server/utils/types'
+
 
 const config = useRuntimeConfig();
 
@@ -16,6 +18,8 @@ export default defineEventHandler(async (event) => {
   //TODO: Veryfy abd Get User
   await protectRoute(event);
 
+  const user = event.context.user as  User
+
   const { messages } = await readBody(event);
 
   if(!openai.apiKey) {
@@ -30,6 +34,8 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'Messages are required'
     })
   }
+
+  const freeTrial = await checkApiLimit(user.id)
 
   const response = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
